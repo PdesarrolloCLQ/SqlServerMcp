@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SqlServerMcp</RootNamespace>
+    <AssemblyName>SqlServerMcp</AssemblyName>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <!-- Librerías basadas en reflexión (ScriptDom, SqlClient, SDK MCP): no recortar. -->
+    <PublishTrimmed>false</PublishTrimmed>
+    <!-- Ejecutable único: incluye las bibliotecas nativas (Microsoft.Data.SqlClient.SNI.dll) dentro del .exe para que no dependa
+         de un archivo suelto que puede faltar al copiar o republicar. -->
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <!-- RNF-10: herramienta global de .NET. -->
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>sqlservermcp</ToolCommandName>
+    <PackageId>SqlServerMcp</PackageId>
+    <Description>Servidor MCP local y seguro para Microsoft SQL Server.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ModelContextProtocol" />
+    <PackageReference Include="Microsoft.SqlServer.TransactSql.ScriptDom" />
+    <PackageReference Include="Microsoft.Data.SqlClient" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+    <PackageReference Include="Serilog.Extensions.Hosting" />
+    <PackageReference Include="Serilog.Sinks.Console" />
+    <PackageReference Include="Serilog.Sinks.File" />
+    <PackageReference Include="Serilog.Formatting.Compact" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" />
+    <PackageReference Include="System.Diagnostics.EventLog" />
+    <PackageReference Include="System.Security.Cryptography.Pkcs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="SqlServerMcp.Tests" />
+    <InternalsVisibleTo Include="SqlServerMcp.IntegrationTests" />
+  </ItemGroup>
+
+</Project>

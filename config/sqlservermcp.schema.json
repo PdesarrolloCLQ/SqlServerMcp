@@ -1,0 +1,804 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Configuración de SqlServerMcp",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "transport": {
+      "type": "string"
+    },
+    "defaultProfile": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "profiles": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "Lectura",
+              "LECTURA",
+              "EscrituraDatos",
+              "ESCRITURA_DATOS",
+              "Completo",
+              "COMPLETO",
+              "READ",
+              "READONLY",
+              "DATAWRITE",
+              "FULL"
+            ]
+          },
+          "environment": {
+            "type": "string",
+            "enum": [
+              "Development",
+              "DEVELOPMENT",
+              "Test",
+              "TEST",
+              "Production",
+              "PRODUCTION",
+              "DESARROLLO",
+              "PRUEBAS",
+              "PRODUCCION",
+              "PRODUCCIÓN"
+            ]
+          },
+          "connection": {
+            "type": "object",
+            "properties": {
+              "server": {
+                "type": "string"
+              },
+              "database": {
+                "type": "string"
+              },
+              "authentication": {
+                "type": "string",
+                "enum": [
+                  "WindowsIntegrated",
+                  "WINDOWS_INTEGRATED",
+                  "SqlPassword",
+                  "SQL_PASSWORD",
+                  "EntraManagedIdentity",
+                  "ENTRA_MANAGED_IDENTITY",
+                  "EntraServicePrincipal",
+                  "ENTRA_SERVICE_PRINCIPAL",
+                  "EntraInteractive",
+                  "ENTRA_INTERACTIVE",
+                  "EntraDefault",
+                  "ENTRA_DEFAULT",
+                  "INTEGRATED",
+                  "WINDOWS",
+                  "SQL"
+                ]
+              },
+              "userName": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "credentialRef": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "encrypt": {
+                "type": "string",
+                "enum": [
+                  "Mandatory",
+                  "MANDATORY",
+                  "Strict",
+                  "STRICT",
+                  "Optional",
+                  "OPTIONAL"
+                ]
+              },
+              "trustServerCertificate": {
+                "type": "boolean"
+              },
+              "hostNameInCertificate": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "applicationName": {
+                "type": "string"
+              },
+              "applicationIntent": {
+                "type": "string",
+                "enum": [
+                  "ReadWrite",
+                  "READ_WRITE",
+                  "ReadOnly",
+                  "READ_ONLY"
+                ]
+              },
+              "connectTimeoutSeconds": {
+                "type": "integer"
+              },
+              "maxPoolSize": {
+                "type": "integer"
+              },
+              "retry": {
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  },
+                  "maxRetries": {
+                    "type": "integer"
+                  },
+                  "deltaSeconds": {
+                    "type": "integer"
+                  },
+                  "maxSeconds": {
+                    "type": "integer"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false
+          },
+          "writeConnection": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "authentication": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "WindowsIntegrated",
+                  "WINDOWS_INTEGRATED",
+                  "SqlPassword",
+                  "SQL_PASSWORD",
+                  "EntraManagedIdentity",
+                  "ENTRA_MANAGED_IDENTITY",
+                  "EntraServicePrincipal",
+                  "ENTRA_SERVICE_PRINCIPAL",
+                  "EntraInteractive",
+                  "ENTRA_INTERACTIVE",
+                  "EntraDefault",
+                  "ENTRA_DEFAULT",
+                  "INTEGRATED",
+                  "WINDOWS",
+                  "SQL",
+                  null
+                ]
+              },
+              "userName": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "credentialRef": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "applicationName": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "allowedDatabases": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "allowedSchemas": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ddlSchemas": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "excluded": {
+            "type": "object",
+            "properties": {
+              "schemas": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "tables": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "columns": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "sensitive": {
+            "type": "object",
+            "properties": {
+              "patterns": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "action": {
+                "type": "string",
+                "enum": [
+                  "Mask",
+                  "MASK",
+                  "Block",
+                  "BLOCK",
+                  "BLOQUEAR",
+                  "ENMASCARAR"
+                ]
+              },
+              "useSqlClassification": {
+                "type": "boolean"
+              },
+              "maskText": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          "pii": {
+            "type": "object",
+            "properties": {
+              "patterns": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "action": {
+                "type": "string",
+                "enum": [
+                  "Mask",
+                  "MASK",
+                  "Allow",
+                  "ALLOW",
+                  "PERMITIR",
+                  "ENMASCARAR"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "limits": {
+            "type": "object",
+            "properties": {
+              "commandTimeoutSeconds": {
+                "type": "integer"
+              },
+              "lockTimeoutMs": {
+                "type": "integer"
+              },
+              "maxRows": {
+                "type": "integer"
+              },
+              "maxResponseBytes": {
+                "type": "integer"
+              },
+              "maxCellChars": {
+                "type": "integer"
+              },
+              "maxAffectedRows": {
+                "type": "integer"
+              },
+              "confirmAboveRows": {
+                "type": "integer"
+              },
+              "maxInsertRows": {
+                "type": "integer"
+              },
+              "maxStatementBytes": {
+                "type": "integer"
+              },
+              "maxConcurrentQueries": {
+                "type": "integer"
+              },
+              "maxCallsPerMinute": {
+                "type": "integer"
+              },
+              "transactionIdleSeconds": {
+                "type": "integer"
+              },
+              "sampleMaxRows": {
+                "type": "integer"
+              },
+              "confirmationExpirySeconds": {
+                "type": "integer"
+              },
+              "affectedRowsMarginPercent": {
+                "type": "integer"
+              },
+              "confirmAboveEstimatedCost": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "largeTableRows": {
+                "type": "integer"
+              }
+            },
+            "additionalProperties": false
+          },
+          "policy": {
+            "type": "object",
+            "properties": {
+              "createAction": {
+                "type": "string",
+                "enum": [
+                  "Allow",
+                  "ALLOW",
+                  "Alert",
+                  "ALERT",
+                  "Confirm",
+                  "CONFIRM",
+                  "Block",
+                  "BLOCK",
+                  "PERMITIR",
+                  "ALERTAR",
+                  "CONFIRMAR",
+                  "BLOQUEAR"
+                ]
+              },
+              "alterAction": {
+                "type": "string",
+                "enum": [
+                  "Allow",
+                  "ALLOW",
+                  "Alert",
+                  "ALERT",
+                  "Confirm",
+                  "CONFIRM",
+                  "Block",
+                  "BLOCK",
+                  "PERMITIR",
+                  "ALERTAR",
+                  "CONFIRMAR",
+                  "BLOQUEAR"
+                ]
+              },
+              "dropAction": {
+                "type": "string",
+                "enum": [
+                  "Allow",
+                  "ALLOW",
+                  "Alert",
+                  "ALERT",
+                  "Confirm",
+                  "CONFIRM",
+                  "Block",
+                  "BLOCK",
+                  "PERMITIR",
+                  "ALERTAR",
+                  "CONFIRMAR",
+                  "BLOQUEAR"
+                ]
+              },
+              "truncateAction": {
+                "type": "string",
+                "enum": [
+                  "Allow",
+                  "ALLOW",
+                  "Alert",
+                  "ALERT",
+                  "Confirm",
+                  "CONFIRM",
+                  "Block",
+                  "BLOCK",
+                  "PERMITIR",
+                  "ALERTAR",
+                  "CONFIRMAR",
+                  "BLOQUEAR"
+                ]
+              },
+              "destructiveAlterAction": {
+                "type": "string",
+                "enum": [
+                  "Allow",
+                  "ALLOW",
+                  "Alert",
+                  "ALERT",
+                  "Confirm",
+                  "CONFIRM",
+                  "Block",
+                  "BLOCK",
+                  "PERMITIR",
+                  "ALERTAR",
+                  "CONFIRMAR",
+                  "BLOQUEAR"
+                ]
+              },
+              "triggerAction": {
+                "type": "string",
+                "enum": [
+                  "Allow",
+                  "ALLOW",
+                  "Alert",
+                  "ALERT",
+                  "Confirm",
+                  "CONFIRM",
+                  "Block",
+                  "BLOCK",
+                  "PERMITIR",
+                  "ALERTAR",
+                  "CONFIRMAR",
+                  "BLOQUEAR"
+                ]
+              },
+              "unfilteredDml": {
+                "type": "string",
+                "enum": [
+                  "Allow",
+                  "ALLOW",
+                  "Alert",
+                  "ALERT",
+                  "Confirm",
+                  "CONFIRM",
+                  "Block",
+                  "BLOCK",
+                  "PERMITIR",
+                  "ALERTAR",
+                  "CONFIRMAR",
+                  "BLOQUEAR"
+                ]
+              },
+              "dynamicSql": {
+                "type": "string",
+                "enum": [
+                  "Allow",
+                  "ALLOW",
+                  "Alert",
+                  "ALERT",
+                  "Confirm",
+                  "CONFIRM",
+                  "Block",
+                  "BLOCK",
+                  "PERMITIR",
+                  "ALERTAR",
+                  "CONFIRMAR",
+                  "BLOQUEAR"
+                ]
+              },
+              "alwaysConfirmDml": {
+                "type": "boolean"
+              },
+              "allowSystemCatalogQueries": {
+                "type": "boolean"
+              },
+              "allowedSchemaOwners": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "allowEncryptedModules": {
+                "type": "boolean"
+              },
+              "confirmationUnavailable": {
+                "type": "string",
+                "enum": [
+                  "Reject",
+                  "REJECT",
+                  "AllowWithAlert",
+                  "ALLOW_WITH_ALERT"
+                ]
+              },
+              "criticalAttemptsThreshold": {
+                "type": "integer"
+              },
+              "criticalAttemptsWindowMinutes": {
+                "type": "integer"
+              },
+              "rules": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "statements": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "statement": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "schema": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "object": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "columns": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "minEstimatedRows": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ]
+                    },
+                    "minEstimatedCost": {
+                      "type": [
+                        "number",
+                        "null"
+                      ]
+                    },
+                    "action": {
+                      "type": "string",
+                      "enum": [
+                        "Allow",
+                        "ALLOW",
+                        "Alert",
+                        "ALERT",
+                        "Confirm",
+                        "CONFIRM",
+                        "Block",
+                        "BLOCK",
+                        "PERMITIR",
+                        "ALERTAR",
+                        "CONFIRMAR",
+                        "BLOQUEAR"
+                      ]
+                    },
+                    "reason": {
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "procedures": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "ReadOnly",
+                    "READ_ONLY",
+                    "SideEffects",
+                    "SIDE_EFFECTS"
+                  ]
+                },
+                "confirm": {
+                  "type": "boolean"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "deniedProcedures": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isolationLevel": {
+            "type": "string",
+            "enum": [
+              "ReadCommitted",
+              "READ_COMMITTED",
+              "Snapshot",
+              "SNAPSHOT",
+              "ReadUncommitted",
+              "READ_UNCOMMITTED",
+              "RepeatableRead",
+              "REPEATABLE_READ",
+              "Serializable",
+              "SERIALIZABLE"
+            ]
+          },
+          "queryInRollbackTransaction": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "absoluteLimits": {
+      "type": "object",
+      "properties": {
+        "commandTimeoutSeconds": {
+          "type": "integer"
+        },
+        "lockTimeoutMs": {
+          "type": "integer"
+        },
+        "maxRows": {
+          "type": "integer"
+        },
+        "maxResponseBytes": {
+          "type": "integer"
+        },
+        "maxCellChars": {
+          "type": "integer"
+        },
+        "maxAffectedRows": {
+          "type": "integer"
+        },
+        "confirmAboveRows": {
+          "type": "integer"
+        },
+        "maxInsertRows": {
+          "type": "integer"
+        },
+        "maxStatementBytes": {
+          "type": "integer"
+        },
+        "maxConcurrentQueries": {
+          "type": "integer"
+        },
+        "maxCallsPerMinute": {
+          "type": "integer"
+        },
+        "transactionIdleSeconds": {
+          "type": "integer"
+        },
+        "sampleMaxRows": {
+          "type": "integer"
+        },
+        "confirmationExpirySeconds": {
+          "type": "integer"
+        },
+        "affectedRowsMarginPercent": {
+          "type": "integer"
+        },
+        "confirmAboveEstimatedCost": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "largeTableRows": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "audit": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "retentionDays": {
+          "type": "integer"
+        },
+        "hashChain": {
+          "type": "boolean"
+        },
+        "maxFileBytes": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "alerts": {
+      "type": "object",
+      "properties": {
+        "windowsEventLog": {
+          "type": "boolean"
+        },
+        "eventLogSource": {
+          "type": "string"
+        },
+        "file": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "webhookRef": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "minimumWebhookSeverity": {
+          "type": "string",
+          "enum": [
+            "Info",
+            "INFO",
+            "Warning",
+            "WARNING",
+            "Critical",
+            "CRITICAL"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "logging": {
+      "type": "object",
+      "properties": {
+        "minimumLevel": {
+          "type": "string"
+        },
+        "filePath": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "retainedFileCount": {
+          "type": "integer"
+        }
+      },
+      "additionalProperties": false
+    },
+    "language": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,93 @@
+{
+  "$schema": "./sqlservermcp.schema.json",
+  "transport": "stdio",
+  "defaultProfile": "desarrollo",
+  "language": "es",
+  "profiles": {
+    "desarrollo": {
+      "description": "Base de desarrollo; DDL solo en el esquema de trabajo ia",
+      "mode": "COMPLETO",
+      "environment": "Development",
+      "connection": {
+        "server": "localhost",
+        "database": "VentasDev",
+        "authentication": "SqlPassword",
+        "userName": "mcp_lector",
+        "credentialRef": "wincred:SqlServerMcp/dev-lector",
+        "encrypt": "Mandatory",
+        "trustServerCertificate": false,
+        "applicationName": "SqlServerMcp"
+      },
+      "writeConnection": {
+        "userName": "mcp_escritor",
+        "credentialRef": "wincred:SqlServerMcp/dev-escritor"
+      },
+      "allowedDatabases": [ "VentasDev" ],
+      "allowedSchemas": [ "ventas", "ia" ],
+      "ddlSchemas": [ "ia" ],
+      "excluded": {
+        "schemas": [ "seguridad" ],
+        "tables": [ "ventas.TarjetasCredito" ],
+        "columns": [ "*.Contrasena", "*.Token" ]
+      },
+      "sensitive": {
+        "action": "Mask"
+      },
+      "pii": {
+        "action": "Mask"
+      },
+      "limits": {
+        "commandTimeoutSeconds": 30,
+        "lockTimeoutMs": 5000,
+        "maxRows": 500,
+        "maxResponseBytes": 1048576,
+        "maxCellChars": 4000,
+        "maxAffectedRows": 1000,
+        "confirmAboveRows": 100,
+        "maxCallsPerMinute": 60
+      },
+      "policy": {
+        "dropAction": "CONFIRM",
+        "truncateAction": "CONFIRM",
+        "dynamicSql": "BLOCK",
+        "rules": [
+          { "id": "R-LOCAL-01", "statement": "Delete", "object": "ventas.Facturas", "action": "BLOCK", "reason": "Las facturas no se eliminan" }
+        ]
+      },
+      "procedures": [
+        { "name": "ventas.usp_ClientesPorSaldo", "kind": "ReadOnly" },
+        { "name": "ventas.usp_DesactivarCliente", "kind": "SideEffects", "confirm": true }
+      ]
+    },
+    "produccion": {
+      "description": "Producción: solo lectura sobre réplica",
+      "enabled": false,
+      "mode": "LECTURA",
+      "environment": "Production",
+      "connection": {
+        "server": "sqlprod01.empresa.local",
+        "database": "Ventas",
+        "authentication": "SqlPassword",
+        "userName": "mcp_lector",
+        "credentialRef": "wincred:SqlServerMcp/prod-lector",
+        "encrypt": "Strict",
+        "applicationIntent": "ReadOnly"
+      },
+      "allowedDatabases": [ "Ventas" ],
+      "allowedSchemas": [ "ventas" ],
+      "limits": { "maxRows": 200, "commandTimeoutSeconds": 15 }
+    }
+  },
+  "audit": {
+    "path": "%LOCALAPPDATA%\\SqlServerMcp\\audit",
+    "retentionDays": 180,
+    "hashChain": true
+  },
+  "alerts": {
+    "windowsEventLog": false,
+    "webhookRef": null
+  },
+  "logging": {
+    "minimumLevel": "Information"
+  }
+}

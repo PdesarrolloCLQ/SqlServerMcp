@@ -1,0 +1,12 @@
+bin/
+obj/
+TestResults/
+*.user
+.vs/
+.vscode/*
+!.vscode/mcp.json.example
+# Configuración local y secretos: nunca versionar
+sqlservermcp.json
+*.dpapi
+*.bin
+audit/
